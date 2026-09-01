@@ -1,0 +1,728 @@
+﻿/* ============================= */
+/* CONFIGURACIÓN GENERAL */
+/* ============================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 30px;
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e;
+    color: white;
+}
+
+
+/* ============================= */
+/* TÍTULO */
+/* ============================= */
+
+h1 {
+    margin-top: 0;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 32px;
+}
+
+
+/* ============================= */
+/* CONTENEDOR PRINCIPAL */
+/* ============================= */
+
+.creator {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-top: 25px;
+    gap: 50px;
+}
+
+
+/* ============================= */
+/* PARTE IZQUIERDA */
+/* ============================= */
+
+.options-panel {
+    flex: 1;
+    min-width: 0;
+    text-align: left;
+}
+
+
+/* ============================= */
+/* PARTE DERECHA */
+/* ============================= */
+
+.character-container {
+    width: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: sticky;
+    top: 100px;
+}
+
+
+/* ============================= */
+/* CATEGORÍAS DE COLORES */
+/* ============================= */
+
+.color-categories {
+    width: 100%;
+    margin: 0;
+}
+
+.color-category {
+    margin-bottom: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #2a2a2a;
+}
+
+
+/* ============================= */
+/* BOTÓN DE CATEGORÍA */
+/* ============================= */
+
+.category-button {
+    width: 100%;
+    padding: 12px 15px;
+    border: none;
+    background-color: #333333;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    cursor: pointer;
+}
+
+    .category-button:hover {
+        background-color: #3d3d3d;
+    }
+
+
+    /* ============================= */
+    /* FLECHA */
+    /* ============================= */
+
+    .category-button span {
+        float: right;
+        transition: transform 0.2s;
+    }
+
+.color-category.open .category-button span {
+    transform: rotate(180deg);
+}
+
+
+/* ============================= */
+/* BOTONES DE COLORES */
+/* ============================= */
+
+.color-category .options {
+    display: grid;
+    grid-template-columns: repeat(11, minmax(0, 1fr));
+    gap: 10px;
+    width: 100%;
+    padding: 15px;
+}
+
+
+/* ================================= */
+/* BOTONES DE COLORES */
+/* ================================= */
+
+.options button.color {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    padding: 0;
+    border: 1px solid #000000;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.15s, outline 0.15s;
+}
+
+
+/* ============================= */
+/* BOTÓN INDIVIDUAL */
+/* ============================= */
+
+.options button.color {
+    width: 55px;
+    height: 55px;
+    padding: 0;
+    border: 1px solid #000000;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.15s, outline 0.15s;
+}
+
+.color:hover {
+    transform: scale(1.08);
+}
+
+
+/* ============================= */
+/* COLOR SELECCIONADO */
+/* ============================= */
+
+.color.selected {
+    outline: 3px solid white;
+    outline-offset: 2px;
+}
+
+
+/* ================================= */
+/* CATEGORÍAS PRINCIPALES */
+/* ================================= */
+
+.main-category {
+    margin-bottom: 12px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #252525;
+}
+
+.main-category-button {
+    width: 100%;
+    padding: 15px 18px;
+    border: none;
+    background-color: #3a3a3a;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: left;
+    cursor: pointer;
+}
+
+    .main-category-button:hover {
+        background-color: #444444;
+    }
+
+    .main-category-button span {
+        float: right;
+        transition: transform 0.2s;
+    }
+
+.main-category.open > .main-category-button span {
+    transform: rotate(180deg);
+}
+
+
+/* ================================= */
+/* CONTENIDO DE CATEGORÍA PRINCIPAL */
+/* ================================= */
+
+.main-category-content {
+    padding: 12px;
+}
+
+
+/* ================================= */
+/* CATEGORÍAS DE ACCESORIOS */
+/* ================================= */
+
+.accessory-category {
+    margin-bottom: 8px;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #303030;
+}
+
+.accessory-category-button {
+    width: 100%;
+    padding: 12px 15px;
+    border: none;
+    background-color: #383838;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: left;
+    cursor: pointer;
+}
+
+    .accessory-category-button:hover {
+        background-color: #444444;
+    }
+
+    .accessory-category-button span {
+        float: right;
+        transition: transform 0.2s;
+    }
+
+.accessory-category.open .accessory-category-button span {
+    transform: rotate(180deg);
+}
+
+
+/* ================================= */
+/* OPCIONES DE ACCESORIOS */
+/* ================================= */
+
+.accessory-options {
+    display: grid;
+    grid-template-columns: repeat(5, 55px);
+    gap: 20px;
+    padding: 15px;
+}
+
+
+/* ================================= */
+/* BOTÓN DE PRUEBA */
+/* ================================= */
+
+.accessory-test {
+    width: 55px;
+    height: 55px;
+    border: 1px solid black;
+    border-radius: 6px;
+    background-color: #555555;
+    cursor: pointer;
+}
+
+
+/* ================================= */
+/* BOTONES DE SOMBREROS */
+/* ================================= */
+
+.accessory-button {
+    width: 70px;
+    height: 70px;
+    padding: 5px;
+    border: 1px solid #000000;
+    border-radius: 6px;
+    background-color: #444444;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.15s, outline 0.15s;
+}
+
+
+    /* ================================= */
+    /* IMAGEN DEL SOMBRERO EN EL BOTÓN */
+    /* ================================= */
+
+    .accessory-button img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+
+    /* ================================= */
+    /* EFECTO AL PASAR EL RATÓN */
+    /* ================================= */
+
+    .accessory-button:hover {
+        transform: scale(1.08);
+    }
+
+
+    /* ================================= */
+    /* SOMBRERO SELECCIONADO */
+    /* ================================= */
+
+    .accessory-button.selected {
+        outline: 3px solid white;
+        outline-offset: 2px;
+    }
+
+
+/* ================================= */
+/* CAPAS DEL PERSONAJE */
+/* ================================= */
+
+.character-container {
+    position: relative;
+    display: inline-block;
+    /* Tamaño original del personaje */
+    width: 450px;
+    height: 450px;
+    overflow: visible;
+    top: 130px;
+}
+
+
+/* ================================= */
+/* FONDO */
+/* ================================= */
+
+#backgroundImage {
+    position: absolute;
+    /* Fondo original: 768 × 1001 */
+    width: 450px;
+    height: 586.52px;
+    left: 0;
+    bottom: 0;
+    object-fit: fill;
+    z-index: 0;
+    pointer-events: none;
+}
+
+
+/* ================================= */
+/* PERSONAJE BASE */
+/* ================================= */
+
+#characterImage {
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    left: 0;
+    bottom: 0;
+    object-fit: contain;
+    z-index: 1;
+}
+
+
+/* ================================= */
+/* SOMBREROS Y ACCESORIOS */
+/* ================================= */
+
+.accessory-layer {
+    position: absolute;
+    /* Imagen original: 768 × 1152 */
+    width: 450px;
+    height: 675px;
+    left: 0;
+    bottom: 0;
+    object-fit: contain;
+    z-index: 2;
+    pointer-events: none;
+}
+
+
+/* ================================= */
+/* PERSONAJE BASE */
+/* ================================= */
+
+#characterImage {
+    position: absolute;
+    /* Tamaño del personaje */
+    width: 450px;
+    height: 450px;
+    /* Centrado horizontal */
+    left: 0;
+    /* La parte inferior coincide con la del fondo */
+    bottom: 0;
+    object-fit: contain;
+    z-index: 2;
+}
+
+
+/* ================================= */
+/* SOMBREROS Y ACCESORIOS */
+/* ================================= */
+
+.accessory-layer {
+    position: absolute;
+    /*
+     * Los sombreros son 768 × 1152.
+     * Se mantienen a escala respecto al personaje.
+     */
+
+    width: 450px;
+    height: 675px;
+    left: 0;
+    bottom: 0;
+    object-fit: contain;
+    z-index: 3;
+    pointer-events: none;
+}
+
+
+/* ================================= */
+/* PERSONAJE BASE */
+/* ================================= */
+
+#characterImage {
+    position: absolute;
+
+    /* Tamaño del personaje */
+    width: 450px;
+    height: 450px;
+
+    /* Centrado horizontal */
+    left: 0;
+
+    /* La parte inferior coincide con la del fondo */
+    bottom: 0;
+
+    object-fit: contain;
+
+    z-index: 2;
+}
+
+
+/* ================================= */
+/* SOMBREROS Y ACCESORIOS */
+/* ================================= */
+
+.accessory-layer {
+    position: absolute;
+
+    /*
+     * Los sombreros son 768 × 1152.
+     * Se mantienen a escala respecto al personaje.
+     */
+
+    width: 450px;
+    height: 675px;
+
+    left: 0;
+    bottom: 0;
+
+    object-fit: contain;
+
+    z-index: 3;
+    pointer-events: none;
+}
+
+
+/* ================================= */
+/* PERSONAJE BASE */
+/* ================================= */
+
+#characterImage {
+    display: block;
+    width: 450px;
+    height: 450px;
+    object-fit: contain;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+
+/* ================================= */
+/* SOMBREROS Y ACCESORIOS */
+/* ================================= */
+
+.accessory-layer {
+    position: absolute;
+    /*
+     * Las imágenes de los sombreros
+     * son 768x1152.
+     *
+     * 450px de ancho equivale a
+     * 675px de alto.
+     */
+
+    width: 450px;
+    height: 675px;
+    left: 0;
+    bottom: 0;
+    object-fit: contain;
+    z-index: 2;
+    pointer-events: none;
+}
+
+
+/* ================================= */
+/* CABECERA */
+/* ================================= */
+
+.site-header {
+    width: 100%;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    box-sizing: border-box;
+    padding: 10px 25px;
+    background-color: #252525;
+    border-bottom: 2px solid #111111;
+}
+
+
+/* ================================= */
+/* BETA */
+/* ================================= */
+
+.beta {
+    padding: 7px 12px;
+    border: 1px solid #000000;
+    border-radius: 6px;
+    background-color: #3a3a3a;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+
+/* ================================= */
+/* TÍTULO DE LA CABECERA */
+/* ================================= */
+
+.site-header h1 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    color: white;
+    font-size: 24px;
+    white-space: nowrap;
+}
+
+
+/* ================================= */
+/* LOGO DEL SERVIDOR */
+/* ================================= */
+
+.server-logo {
+    width: 60px;
+    height: 60px;
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 5px;
+    background-color: #3a3a3a;
+    border: 1px solid #000000;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.15s, background-color 0.15s;
+}
+
+
+    /* ================================= */
+    /* IMAGEN DEL LOGO */
+    /* ================================= */
+
+    .server-logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 7px;
+    }
+
+
+    /* ================================= */
+    /* EFECTO DEL LOGO */
+    /* ================================= */
+
+    .server-logo:hover {
+        transform: scale(1.08);
+        background-color: #444444;
+    }
+
+
+/* ================================= */
+/* PIE DE PÁGINA */
+/* ================================= */
+
+.site-footer {
+    width: 100%;
+    max-width: 1200px;
+    margin: 15px auto 0;
+    padding: 25px 20px 15px;
+    text-align: center;
+    border-top: 1px solid #3a3a3a;
+}
+
+
+/* ================================= */
+/* AVISO DE DESARROLLO */
+/* ================================= */
+
+.development-notice {
+    max-width: 800px;
+    margin: 0 auto 25px;
+    color: #bdbdbd;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* ================================= */
+/* AUTOR */
+/* ================================= */
+
+.developer-credit {
+    margin: 0;
+    color: #777777;
+    font-size: 11px;
+    text-align: center;
+}
+
+
+/* ================================= */
+/* PANTALLAS PEQUEÑAS */
+/* ================================= */
+
+@media (max-width: 900px) {
+
+    .creator {
+        flex-direction: column;
+    }
+
+    .character-container {
+        width: 100%;
+        height: 450px;
+        order: -1;
+        position: static;
+        background-size: 345.6px 450px;
+        background-position: center bottom;
+
+    }
+
+    #characterImage {
+        width: 350px;
+        height: 350px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .accessory-layer {
+        width: 350px;
+        height: 525px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .color-category .options {
+        grid-template-columns: repeat(5, 55px);
+    }
+}
+/* ================================= */
+/* BOTÓN EXPORTAR */
+/* ================================= */
+
+.export-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 150px;
+}
+
+
+#exportButton {
+    padding: 12px 24px;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    background-color: #3a3a3a;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.15s, background-color 0.15s;
+}
+
+
+    #exportButton:hover {
+        background-color: #444444;
+        transform: scale(1.05);
+    }
+
+
+    #exportButton:active {
+        transform: scale(0.98);
+    }
