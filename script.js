@@ -421,12 +421,13 @@ hatButtons.forEach(button => {
 
 document.getElementById("exportButton").addEventListener("click", async function () {
 
+    const container = document.querySelector(".character-container");
     const character = document.getElementById("characterImage");
     const hat = document.getElementById("hatImage");
 
-    // =================================
-    // CARGAR IMAGEN
-    // =================================
+    // ---------------------------------
+    // Función para cargar una imagen
+    // ---------------------------------
 
     function loadImage(src) {
 
@@ -437,7 +438,7 @@ document.getElementById("exportButton").addEventListener("click", async function
             img.onload = () => resolve(img);
 
             img.onerror = () => reject(
-                new Error("No se pudo cargar la imagen: " + src)
+                new Error("No se pudo cargar: " + src)
             );
 
             img.src = src;
@@ -449,16 +450,11 @@ document.getElementById("exportButton").addEventListener("click", async function
 
     try {
 
-        // =================================
-        // CARGAR PERSONAJE
-        // =================================
+        // ---------------------------------
+        // Cargar imágenes
+        // ---------------------------------
 
         const characterImg = await loadImage(character.src);
-
-
-        // =================================
-        // CARGAR ACCESORIO
-        // =================================
 
         let hatImg = null;
 
@@ -473,73 +469,195 @@ document.getElementById("exportButton").addEventListener("click", async function
         }
 
 
-        // =================================
-        // TAMAÑO ORIGINAL DEL ACCESORIO
-        // =================================
+        // ---------------------------------
+        // Obtener posiciones reales
+        // ---------------------------------
 
-        let width;
-        let height;
-
-        if (hatImg) {
-
-            width = hatImg.naturalWidth;
-            height = hatImg.naturalHeight;
-
-        } else {
-
-            width = characterImg.naturalWidth;
-            height = characterImg.naturalHeight;
-
-        }
+        const containerRect = container.getBoundingClientRect();
+        const characterRect = character.getBoundingClientRect();
 
 
-        // =================================
-        // CREAR CANVAS TRANSPARENTE
-        // =================================
+        // ---------------------------------
+        // Escala de exportación
+        // ---------------------------------
+
+        const scale = 2;
+
+
+        // ---------------------------------
+        // Crear canvas
+        // ---------------------------------
 
         const canvas = document.createElement("canvas");
 
-        canvas.width = width;
-        canvas.height = height;
+        canvas.width = Math.round(containerRect.width * scale);
+        canvas.height = Math.round(containerRect.height * scale);
 
         const ctx = canvas.getContext("2d");
 
-
-        // =================================
-        // DIBUJAR PERSONAJE
-        // =================================
-
-        ctx.drawImage(
-            characterImg,
+        ctx.clearRect(
             0,
             0,
-            width,
-            height
+            canvas.width,
+            canvas.height
         );
 
 
-        // =================================
-        // DIBUJAR ACCESORIO
-        // =================================
+        // ---------------------------------
+        // Dibujar personaje
+        // ---------------------------------
+
+        const characterX =
+            (characterRect.left - containerRect.left) * scale;
+
+        const characterY =
+            (characterRect.top - containerRect.top) * scale;
+
+        const characterWidth =
+            characterRect.width * scale;
+
+        const characterHeight =
+            characterRect.height * scale;
+
+
+        ctx.drawImage(
+            characterImg,
+            characterX,
+            characterY,
+            characterWidth,
+            characterHeight
+        );
+
+
+        // ---------------------------------
+        // Dibujar accesorio
+        // ---------------------------------
 
         if (hatImg) {
 
+            const hatRect = hat.getBoundingClientRect();
+
+            const hatX =
+                (hatRect.left - containerRect.left) * scale;
+
+            const hatY =
+                (hatRect.top - containerRect.top) * scale;
+
+            const hatWidth =
+                hatRect.width * scale;
+
+            const hatHeight =
+                hatRect.height * scale;
+
+
             ctx.drawImage(
                 hatImg,
-                0,
-                0,
-                width,
-                height
+                hatX,
+                hatY,
+                hatWidth,
+                hatHeight
             );
 
         }
 
 
-        // =================================
-        // EXPORTAR PNG
-        // =================================
+        // ---------------------------------
+        // RECORTAR TRANSPARENCIA
+        // ---------------------------------
 
-        canvas.toBlob(function (blob) {
+        const imageData = ctx.getImageData(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        const pixels = imageData.data;
+
+        let minX = canvas.width;
+        let minY = canvas.height;
+        let maxX = 0;
+        let maxY = 0;
+
+        let foundPixel = false;
+
+
+        for (let y = 0; y < canvas.height; y++) {
+
+            for (let x = 0; x < canvas.width; x++) {
+
+                const alpha =
+                    pixels[(y * canvas.width + x) * 4 + 3];
+
+                if (alpha > 0) {
+
+                    foundPixel = true;
+
+                    if (x < minX) minX = x;
+                    if (x > maxX) maxX = x;
+
+                    if (y < minY) minY = y;
+                    if (y > maxY) maxY = y;
+
+                }
+
+            }
+
+        }
+
+
+        // ---------------------------------
+        // Si no hay imagen
+        // ---------------------------------
+
+        if (!foundPixel) {
+
+            console.error("No hay contenido para exportar.");
+
+            return;
+
+        }
+
+
+        // ---------------------------------
+        // Crear canvas recortado
+        // ---------------------------------
+
+        const croppedCanvas =
+            document.createElement("canvas");
+
+
+        croppedCanvas.width =
+            maxX - minX + 1;
+
+        croppedCanvas.height =
+            maxY - minY + 1;
+
+
+        const croppedCtx =
+            croppedCanvas.getContext("2d");
+
+
+        croppedCtx.drawImage(
+            canvas,
+
+            minX,
+            minY,
+            croppedCanvas.width,
+            croppedCanvas.height,
+
+            0,
+            0,
+            croppedCanvas.width,
+            croppedCanvas.height
+        );
+
+
+        // ---------------------------------
+        // Crear PNG
+        // ---------------------------------
+
+        croppedCanvas.toBlob(function (blob) {
 
             if (!blob) {
 
@@ -552,11 +670,12 @@ document.getElementById("exportButton").addEventListener("click", async function
             }
 
 
-            // =================================
-            // CREAR DESCARGA
-            // =================================
+            // ---------------------------------
+            // Descargar
+            // ---------------------------------
 
-            const link = document.createElement("a");
+            const link =
+                document.createElement("a");
 
             link.download =
                 "the-station-personaje.png";
@@ -571,8 +690,6 @@ document.getElementById("exportButton").addEventListener("click", async function
 
             document.body.removeChild(link);
 
-
-            // Liberar memoria
 
             setTimeout(() => {
 
