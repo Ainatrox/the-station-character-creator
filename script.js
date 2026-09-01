@@ -424,6 +424,7 @@ document.getElementById("exportButton").addEventListener("click", async function
     const character = document.getElementById("characterImage");
     const hat = document.getElementById("hatImage");
 
+
     // =================================
     // CARGAR IMAGEN
     // =================================
@@ -474,23 +475,45 @@ document.getElementById("exportButton").addEventListener("click", async function
 
 
         // =================================
-        // TAMAÑO ORIGINAL DEL ACCESORIO
+        // TAMAÑOS ORIGINALES
         // =================================
 
-        let width;
-        let height;
+        const characterWidth = characterImg.naturalWidth;
+        const characterHeight = characterImg.naturalHeight;
+
+
+        let hatWidth = 0;
+        let hatHeight = 0;
 
         if (hatImg) {
 
-            width = hatImg.naturalWidth;
-            height = hatImg.naturalHeight;
-
-        } else {
-
-            width = characterImg.naturalWidth;
-            height = characterImg.naturalHeight;
+            hatWidth = hatImg.naturalWidth;
+            hatHeight = hatImg.naturalHeight;
 
         }
+
+
+        // =================================
+        // TAMAÑO DEL CANVAS
+        // =================================
+
+        /*
+         * NO se cambia el tamaño de ninguna imagen.
+         *
+         * El canvas será suficientemente grande
+         * para contener tanto al personaje como
+         * al accesorio.
+         */
+
+        const width = Math.max(
+            characterWidth,
+            hatWidth
+        );
+
+        const height = Math.max(
+            characterHeight,
+            hatHeight
+        );
 
 
         // =================================
@@ -506,15 +529,49 @@ document.getElementById("exportButton").addEventListener("click", async function
 
 
         // =================================
+        // POSICIÓN DEL PERSONAJE
+        // =================================
+
+        /*
+         * Se coloca abajo.
+         *
+         * Esto hace que la parte inferior
+         * coincida con la del accesorio.
+         */
+
+        const characterX =
+            (width - characterWidth) / 2;
+
+        const characterY =
+            height - characterHeight;
+
+
+        // =================================
+        // POSICIÓN DEL ACCESORIO
+        // =================================
+
+        let hatX = 0;
+        let hatY = 0;
+
+        if (hatImg) {
+
+            hatX =
+                (width - hatWidth) / 2;
+
+            hatY =
+                height - hatHeight;
+
+        }
+
+
+        // =================================
         // DIBUJAR PERSONAJE
         // =================================
 
         ctx.drawImage(
             characterImg,
-            0,
-            0,
-            width,
-            height
+            characterX,
+            characterY
         );
 
 
@@ -526,10 +583,8 @@ document.getElementById("exportButton").addEventListener("click", async function
 
             ctx.drawImage(
                 hatImg,
-                0,
-                0,
-                width,
-                height
+                hatX,
+                hatY
             );
 
         }
@@ -556,7 +611,8 @@ document.getElementById("exportButton").addEventListener("click", async function
             // CREAR DESCARGA
             // =================================
 
-            const link = document.createElement("a");
+            const link =
+                document.createElement("a");
 
             link.download =
                 "the-station-personaje.png";
@@ -572,7 +628,9 @@ document.getElementById("exportButton").addEventListener("click", async function
             document.body.removeChild(link);
 
 
-            // Liberar memoria
+            // =================================
+            // LIBERAR MEMORIA
+            // =================================
 
             setTimeout(() => {
 
