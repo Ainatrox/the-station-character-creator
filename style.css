@@ -787,7 +787,7 @@ body {
 /* AJUSTE DEL PERSONAJE EN MÓVIL */
 /* ================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 800px) {
 
     .character-container {
         margin-top: 100px;
