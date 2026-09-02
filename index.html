@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-
 <html lang="es">
 
 <head>
@@ -9,34 +8,42 @@
     <title>The Station - Character Creator</title>
 
     <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
-    <div id="mobileWarning">
-        <div class="mobile-warning-box">
+
+    <!-- ================================= -->
+    <!-- AVISO DE VISTA DE ESCRITORIO -->
+    <!-- ================================= -->
+
+    <div id="desktopWarning">
+
+        <div class="desktop-warning-box">
+
             <h2>💻 Vista de escritorio necesaria</h2>
 
             <p>
-                Esta página está diseñada para utilizarse desde un ordenador.
+                Esta página necesita utilizarse en
+                <strong>Vista de escritorio</strong>.
             </p>
 
             <p>
-                Si estás utilizando un móvil o tablet, activa la
-                <strong>Vista de escritorio</strong> en las opciones de tu navegador
-                y vuelve a cargar la página.
+                Activa la opción <strong>“Vista de escritorio”</strong>
+                en tu navegador y después pulsa el botón de abajo.
             </p>
 
             <button onclick="location.reload()">
-                🔄 Recargar página
+                🔄 Comprobar de nuevo
             </button>
+
         </div>
+
     </div>
 
 
-    <!-- ============================= -->
+    <!-- ================================= -->
     <!-- CABECERA -->
-    <!-- ============================= -->
+    <!-- ================================= -->
 
     <header class="site-header">
 
@@ -69,23 +76,23 @@
     </header>
 
 
-    <!-- ============================= -->
+    <!-- ================================= -->
     <!-- CREADOR -->
-    <!-- ============================= -->
+    <!-- ================================= -->
 
     <div class="creator">
 
 
-        <!-- ============================= -->
+        <!-- ================================= -->
         <!-- PANEL IZQUIERDO -->
-        <!-- ============================= -->
+        <!-- ================================= -->
 
         <div class="options-panel">
 
 
-            <!-- ============================= -->
+            <!-- ================================= -->
             <!-- CATEGORÍA PRINCIPAL: COLORES -->
-            <!-- ============================= -->
+            <!-- ================================= -->
 
             <div class="main-category">
 
@@ -124,6 +131,7 @@
                                 <button class="color" data-color="red_11" title="Rojo granate"></button>
 
                             </div>
+
                         </div>
 
 
@@ -151,6 +159,7 @@
                                 <button class="color" data-color="orange_11" title="Naranja coral"></button>
 
                             </div>
+
                         </div>
 
 
@@ -178,6 +187,7 @@
                                 <button class="color" data-color="yellow_11" title="Amarillo vainilla"></button>
 
                             </div>
+
                         </div>
 
 
@@ -205,6 +215,7 @@
                                 <button class="color" data-color="green_11" title="Verde jade"></button>
 
                             </div>
+
                         </div>
 
 
@@ -232,6 +243,7 @@
                                 <button class="color" data-color="blue_11" title="Azul prusia"></button>
 
                             </div>
+
                         </div>
 
 
@@ -259,6 +271,7 @@
                                 <button class="color" data-color="purple_11" title="Berenjena"></button>
 
                             </div>
+
                         </div>
 
 
@@ -286,6 +299,7 @@
                                 <button class="color" data-color="pink_11" title="Rosa frambuesa"></button>
 
                             </div>
+
                         </div>
 
 
@@ -313,6 +327,7 @@
                                 <button class="color" data-color="cyan_11" title="Azul piscina"></button>
 
                             </div>
+
                         </div>
 
 
@@ -340,6 +355,7 @@
                                 <button class="color" data-color="brown_11" title="Castaño"></button>
 
                             </div>
+
                         </div>
 
 
@@ -367,6 +383,7 @@
                                 <button class="color" data-color="white_11" title="Gris perla"></button>
 
                             </div>
+
                         </div>
 
 
@@ -394,6 +411,7 @@
                                 <button class="color" data-color="black_11" title="Negro grafito"></button>
 
                             </div>
+
                         </div>
 
                     </div>
@@ -403,9 +421,9 @@
             </div>
 
 
-            <!-- ============================= -->
+            <!-- ================================= -->
             <!-- CATEGORÍA PRINCIPAL: ACCESORIOS -->
-            <!-- ============================= -->
+            <!-- ================================= -->
 
             <div class="main-category">
 
@@ -576,14 +594,11 @@
         </div>
 
 
-        <!-- ============================= -->
+        <!-- ================================= -->
         <!-- SECCIÓN DEL PERSONAJE -->
-        <!-- ============================= -->
+        <!-- ================================= -->
 
         <div class="character-section">
-
-
-            <!-- PERSONAJE -->
 
             <div class="character-container">
 
@@ -611,9 +626,9 @@
             </div>
 
 
-            <!-- ============================= -->
+            <!-- ================================= -->
             <!-- BOTÓN DE EXPORTAR -->
-            <!-- ============================= -->
+            <!-- ================================= -->
 
             <div class="export-container">
 
@@ -628,9 +643,9 @@
     </div>
 
 
-    <!-- ============================= -->
+    <!-- ================================= -->
     <!-- PIE DE PÁGINA -->
-    <!-- ============================= -->
+    <!-- ================================= -->
 
     <footer class="site-footer">
 
@@ -649,24 +664,51 @@
     </footer>
 
 
-    <script src="script.js"></script>
+    <!-- ================================= -->
+    <!-- DETECCIÓN DE VISTA DE ESCRITORIO -->
+    <!-- ================================= -->
+
     <script>
-        function comprobarDispositivo() {
 
-            const esMovil =
-                /Android|iPhone|iPad|iPod|Windows Phone|Mobile/i.test(navigator.userAgent);
+        function comprobarVistaEscritorio() {
 
-            const viewportPequeno = window.innerWidth < 1000;
+            const userAgent = navigator.userAgent;
 
-            if (esMovil || viewportPequeno) {
-                document.body.classList.add("mobile-device");
+            const esDispositivoMovil =
+                /Android|iPhone|iPad|iPod|Windows Phone/i.test(userAgent);
+
+
+            /*
+             * Los móviles/tablets en vista normal
+             * suelen tener un viewport inferior a 1000px.
+             *
+             * En Vista de escritorio el navegador proporciona
+             * un viewport mucho más grande.
+             */
+
+            const anchoViewport = window.innerWidth;
+
+            const estaEnVistaEscritorio =
+                !esDispositivoMovil || anchoViewport >= 1000;
+
+
+            if (estaEnVistaEscritorio) {
+
+                document.body.classList.add("desktop-mode");
+
             } else {
-                document.body.classList.add("desktop-device");
+
+                document.body.classList.add("mobile-mode");
+
             }
+
         }
 
-        comprobarDispositivo();
+
+        comprobarVistaEscritorio();
+
     </script>
+
 </body>
 
 </html>

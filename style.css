@@ -784,30 +784,41 @@ body {
     }
 }
 /* ================================= */
-/* AVISO PARA MÓVILES Y TABLETS */
+/* AVISO DE VISTA DE ESCRITORIO */
 /* ================================= */
 
-#mobileWarning {
+#desktopWarning {
     display: none;
 }
 
-body.mobile-device > *:not(#mobileWarning) {
+
+/* ================================= */
+/* CUANDO NO ESTÁ EN VISTA ESCRITORIO */
+/* ================================= */
+
+body.mobile-mode > *:not(#desktopWarning) {
     display: none !important;
 }
 
-body.mobile-device {
+body.mobile-mode {
     min-width: 0;
     padding: 20px;
 }
 
-    body.mobile-device #mobileWarning {
-        display: flex;
+    body.mobile-mode #desktopWarning {
+        display: flex !important;
+        width: 100%;
         min-height: calc(100vh - 40px);
         align-items: center;
         justify-content: center;
     }
 
-.mobile-warning-box {
+
+/* ================================= */
+/* CAJA DEL AVISO */
+/* ================================= */
+
+.desktop-warning-box {
     width: 100%;
     max-width: 500px;
     padding: 30px;
@@ -817,17 +828,18 @@ body.mobile-device {
     text-align: center;
 }
 
-    .mobile-warning-box h2 {
+    .desktop-warning-box h2 {
         margin-top: 0;
         margin-bottom: 20px;
+        color: white;
     }
 
-    .mobile-warning-box p {
+    .desktop-warning-box p {
         color: #bdbdbd;
         line-height: 1.6;
     }
 
-    .mobile-warning-box button {
+    .desktop-warning-box button {
         margin-top: 15px;
         padding: 12px 20px;
         border: none;
@@ -838,6 +850,6 @@ body.mobile-device {
         cursor: pointer;
     }
 
-        .mobile-warning-box button:hover {
+        .desktop-warning-box button:hover {
             background-color: #444444;
         }
