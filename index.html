@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.5, maximum-scale=5.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>The Station - Character Creator</title>
 
@@ -13,6 +13,25 @@
 </head>
 
 <body>
+    <div id="mobileWarning">
+        <div class="mobile-warning-box">
+            <h2>💻 Vista de escritorio necesaria</h2>
+
+            <p>
+                Esta página está diseñada para utilizarse desde un ordenador.
+            </p>
+
+            <p>
+                Si estás utilizando un móvil o tablet, activa la
+                <strong>Vista de escritorio</strong> en las opciones de tu navegador
+                y vuelve a cargar la página.
+            </p>
+
+            <button onclick="location.reload()">
+                🔄 Recargar página
+            </button>
+        </div>
+    </div>
 
 
     <!-- ============================= -->
@@ -631,7 +650,23 @@
 
 
     <script src="script.js"></script>
+    <script>
+        function comprobarDispositivo() {
 
+            const esMovil =
+                /Android|iPhone|iPad|iPod|Windows Phone|Mobile/i.test(navigator.userAgent);
+
+            const viewportPequeno = window.innerWidth < 1000;
+
+            if (esMovil || viewportPequeno) {
+                document.body.classList.add("mobile-device");
+            } else {
+                document.body.classList.add("desktop-device");
+            }
+        }
+
+        comprobarDispositivo();
+    </script>
 </body>
 
 </html>
