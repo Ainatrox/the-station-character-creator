@@ -726,3 +726,60 @@ h1 {
     #exportButton:active {
         transform: scale(0.98);
     }
+/* ================================= */
+/* DISEÑO FIJO */
+/* ================================= */
+
+/* Evita que los elementos se reorganicen al reducir la ventana */
+
+html,
+body {
+    min-width: 1200px;
+}
+
+
+/* Mantener el creador con el mismo tamaño */
+
+.creator {
+    width: 1200px;
+    min-width: 1200px;
+}
+
+
+/* Mantener el panel izquierdo */
+
+.options-panel {
+    width: 700px;
+    flex: none;
+}
+
+
+/* Mantener el personaje en su posición */
+
+.character-container {
+    width: 450px;
+    min-width: 450px;
+    flex: none;
+}
+
+
+/* Eliminar el diseño responsive */
+
+@media (max-width: 900px) {
+
+    .creator {
+        flex-direction: row;
+    }
+
+    .character-container {
+        width: 450px;
+        min-width: 450px;
+        order: initial;
+        position: sticky;
+    }
+
+    #characterImage {
+        width: 450px;
+        height: 450px;
+    }
+}
