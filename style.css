@@ -783,3 +783,13 @@ body {
         height: 450px;
     }
 }
+/* ================================= */
+/* AJUSTE DEL PERSONAJE EN MÓVIL */
+/* ================================= */
+
+@media (max-width: 900px) {
+
+    .character-container {
+        margin-top: 80px;
+    }
+}
