@@ -6,6 +6,12 @@
     box-sizing: border-box;
 }
 
+html,
+body {
+    min-width: 1200px;
+    min-height: 100%;
+}
+
 body {
     margin: 0;
     padding: 30px;
@@ -33,11 +39,11 @@ h1 {
 
 .creator {
     display: flex;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    margin-top: 25px;
+    width: 1200px;
+    min-width: 1200px;
+    margin: 25px auto 0;
     gap: 50px;
+    align-items: flex-start;
 }
 
 
@@ -46,8 +52,9 @@ h1 {
 /* ============================= */
 
 .options-panel {
-    flex: 1;
-    min-width: 0;
+    width: 700px;
+    min-width: 700px;
+    flex: none;
     text-align: left;
 }
 
@@ -56,13 +63,12 @@ h1 {
 /* PARTE DERECHA */
 /* ============================= */
 
-.character-container {
-    width: 450px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+.character-section {
+    width: 350px;
+    min-width: 350px;
+    flex: none;
     position: sticky;
-    top: 100px;
+    top: 0;
 }
 
 
@@ -105,7 +111,7 @@ h1 {
 
 
     /* ============================= */
-    /* FLECHA */
+    /* FLECHA DE CATEGORÍA */
     /* ============================= */
 
     .category-button span {
@@ -124,30 +130,15 @@ h1 {
 
 .color-category .options {
     display: grid;
-    grid-template-columns: repeat(11, minmax(0, 1fr));
+    grid-template-columns: repeat(10, 55px);
     gap: 10px;
     width: 100%;
     padding: 15px;
 }
 
 
-/* ================================= */
-/* BOTONES DE COLORES */
-/* ================================= */
-
-.options button.color {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    padding: 0;
-    border: 1px solid #000000;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: transform 0.15s, outline 0.15s;
-}
-
-
 /* ============================= */
-/* BOTÓN INDIVIDUAL */
+/* BOTÓN INDIVIDUAL DE COLOR */
 /* ============================= */
 
 .options button.color {
@@ -159,6 +150,11 @@ h1 {
     cursor: pointer;
     transition: transform 0.15s, outline 0.15s;
 }
+
+
+/* ============================= */
+/* EFECTO COLOR */
+/* ============================= */
 
 .color:hover {
     transform: scale(1.08);
@@ -202,6 +198,11 @@ h1 {
         background-color: #444444;
     }
 
+
+    /* ================================ */
+    /* FLECHA CATEGORÍA PRINCIPAL */
+    /* ================================ */
+
     .main-category-button span {
         float: right;
         transition: transform 0.2s;
@@ -213,7 +214,7 @@ h1 {
 
 
 /* ================================= */
-/* CONTENIDO DE CATEGORÍA PRINCIPAL */
+/* CONTENIDO CATEGORÍA PRINCIPAL */
 /* ================================= */
 
 .main-category-content {
@@ -232,6 +233,11 @@ h1 {
     background-color: #303030;
 }
 
+
+/* ================================= */
+/* BOTÓN DE ACCESORIO */
+/* ================================= */
+
 .accessory-category-button {
     width: 100%;
     padding: 12px 15px;
@@ -248,6 +254,11 @@ h1 {
         background-color: #444444;
     }
 
+
+    /* ================================= */
+    /* FLECHA DE ACCESORIO */
+    /* ================================= */
+
     .accessory-category-button span {
         float: right;
         transition: transform 0.2s;
@@ -259,15 +270,45 @@ h1 {
 
 
 /* ================================= */
-/* OPCIONES DE ACCESORIOS */
+/* CONTENIDO DE ACCESORIOS */
 /* ================================= */
 
 .accessory-options {
     display: grid;
-    grid-template-columns: repeat(5, 55px);
+    grid-template-columns: repeat(9, 55px);
     gap: 20px;
     padding: 15px;
+    /*
+     * El scroll pertenece únicamente
+     * a esta zona.
+     */
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
+
+
+    /* ================================= */
+    /* BARRA DE SCROLL */
+    /* ================================= */
+
+    .accessory-options::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .accessory-options::-webkit-scrollbar-track {
+        background-color: #252525;
+        border-radius: 5px;
+    }
+
+    .accessory-options::-webkit-scrollbar-thumb {
+        background-color: #555555;
+        border-radius: 5px;
+    }
+
+        .accessory-options::-webkit-scrollbar-thumb:hover {
+            background-color: #666666;
+        }
 
 
 /* ================================= */
@@ -289,9 +330,9 @@ h1 {
 /* ================================= */
 
 .accessory-button {
-    width: 70px;
-    height: 70px;
-    padding: 5px;
+    width: 55px;
+    height: 55px;
+    padding: 3px;
     border: 1px solid #000000;
     border-radius: 6px;
     background-color: #444444;
@@ -334,17 +375,16 @@ h1 {
 
 
 /* ================================= */
-/* CAPAS DEL PERSONAJE */
+/* CONTENEDOR DEL PERSONAJE */
 /* ================================= */
 
 .character-container {
     position: relative;
-    display: inline-block;
-    /* Tamaño original del personaje */
-    width: 450px;
-    height: 450px;
+    width: 350px;
+    height: 350px;
+    display: block;
     overflow: visible;
-    top: 130px;
+    top: 100px;
 }
 
 
@@ -354,9 +394,8 @@ h1 {
 
 #backgroundImage {
     position: absolute;
-    /* Fondo original: 768 × 1001 */
-    width: 450px;
-    height: 586.52px;
+    width: 350px;
+    height: 455.96px;
     left: 0;
     bottom: 0;
     object-fit: fill;
@@ -371,151 +410,24 @@ h1 {
 
 #characterImage {
     position: absolute;
-    width: 450px;
-    height: 450px;
+    width: 350px;
+    height: 350px;
     left: 0;
     bottom: 0;
     object-fit: contain;
     z-index: 1;
-}
-
-
-/* ================================= */
-/* SOMBREROS Y ACCESORIOS */
-/* ================================= */
-
-.accessory-layer {
-    position: absolute;
-    /* Imagen original: 768 × 1152 */
-    width: 450px;
-    height: 675px;
-    left: 0;
-    bottom: 0;
-    object-fit: contain;
-    z-index: 2;
     pointer-events: none;
 }
 
 
 /* ================================= */
-/* PERSONAJE BASE */
-/* ================================= */
-
-#characterImage {
-    position: absolute;
-    /* Tamaño del personaje */
-    width: 450px;
-    height: 450px;
-    /* Centrado horizontal */
-    left: 0;
-    /* La parte inferior coincide con la del fondo */
-    bottom: 0;
-    object-fit: contain;
-    z-index: 2;
-}
-
-
-/* ================================= */
 /* SOMBREROS Y ACCESORIOS */
 /* ================================= */
 
 .accessory-layer {
     position: absolute;
-    /*
-     * Los sombreros son 768 × 1152.
-     * Se mantienen a escala respecto al personaje.
-     */
-
-    width: 450px;
-    height: 675px;
-    left: 0;
-    bottom: 0;
-    object-fit: contain;
-    z-index: 3;
-    pointer-events: none;
-}
-
-
-/* ================================= */
-/* PERSONAJE BASE */
-/* ================================= */
-
-#characterImage {
-    position: absolute;
-
-    /* Tamaño del personaje */
-    width: 450px;
-    height: 450px;
-
-    /* Centrado horizontal */
-    left: 0;
-
-    /* La parte inferior coincide con la del fondo */
-    bottom: 0;
-
-    object-fit: contain;
-
-    z-index: 2;
-}
-
-
-/* ================================= */
-/* SOMBREROS Y ACCESORIOS */
-/* ================================= */
-
-.accessory-layer {
-    position: absolute;
-
-    /*
-     * Los sombreros son 768 × 1152.
-     * Se mantienen a escala respecto al personaje.
-     */
-
-    width: 450px;
-    height: 675px;
-
-    left: 0;
-    bottom: 0;
-
-    object-fit: contain;
-
-    z-index: 3;
-    pointer-events: none;
-}
-
-
-/* ================================= */
-/* PERSONAJE BASE */
-/* ================================= */
-
-#characterImage {
-    display: block;
-    width: 450px;
-    height: 450px;
-    object-fit: contain;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    z-index: 1;
-}
-
-
-/* ================================= */
-/* SOMBREROS Y ACCESORIOS */
-/* ================================= */
-
-.accessory-layer {
-    position: absolute;
-    /*
-     * Las imágenes de los sombreros
-     * son 768x1152.
-     *
-     * 450px de ancho equivale a
-     * 675px de alto.
-     */
-
-    width: 450px;
-    height: 675px;
+    width: 350px;
+    height: 525px;
     left: 0;
     bottom: 0;
     object-fit: contain;
@@ -534,7 +446,6 @@ h1 {
     display: flex;
     align-items: center;
     position: relative;
-    box-sizing: border-box;
     padding: 10px 25px;
     background-color: #252525;
     border-bottom: 2px solid #111111;
@@ -583,7 +494,6 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
     padding: 5px;
     background-color: #3a3a3a;
     border: 1px solid #000000;
@@ -620,12 +530,18 @@ h1 {
 /* ================================= */
 
 .site-footer {
-    width: 100%;
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 1200px;
     max-width: 1200px;
-    margin: 15px auto 0;
-    padding: 25px 20px 15px;
+    margin: 0;
+    padding: 12px 20px 8px;
     text-align: center;
     border-top: 1px solid #3a3a3a;
+    background-color: #1e1e1e;
+    z-index: 10;
 }
 
 
@@ -635,10 +551,10 @@ h1 {
 
 .development-notice {
     max-width: 800px;
-    margin: 0 auto 25px;
+    margin: 0 auto 10px;
     color: #bdbdbd;
-    font-size: 14px;
-    line-height: 1.6;
+    font-size: 12px;
+    line-height: 1.4;
 }
 
 
@@ -649,58 +565,20 @@ h1 {
 .developer-credit {
     margin: 0;
     color: #777777;
-    font-size: 11px;
+    font-size: 10px;
     text-align: center;
 }
 
 
 /* ================================= */
-/* PANTALLAS PEQUEÑAS */
-/* ================================= */
-
-@media (max-width: 900px) {
-
-    .creator {
-        flex-direction: column;
-    }
-
-    .character-container {
-        width: 100%;
-        height: 450px;
-        order: -1;
-        position: static;
-        background-size: 345.6px 450px;
-        background-position: center bottom;
-
-    }
-
-    #characterImage {
-        width: 350px;
-        height: 350px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .accessory-layer {
-        width: 350px;
-        height: 525px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    .color-category .options {
-        grid-template-columns: repeat(5, 55px);
-    }
-}
-/* ================================= */
 /* BOTÓN EXPORTAR */
 /* ================================= */
 
 .export-container {
-    width: 100%;
+    width: 350px;
     display: flex;
     justify-content: center;
-    margin-top: 150px;
+    margin-top: 110px;
 }
 
 
@@ -727,59 +605,43 @@ h1 {
         transform: scale(0.98);
     }
 /* ================================= */
-/* DISEÑO FIJO */
+/* ESTRUCTURA FIJA DE LA PÁGINA */
 /* ================================= */
 
-/* Evita que los elementos se reorganicen al reducir la ventana */
-
-html,
 body {
-    min-width: 1200px;
+    overflow: hidden;
 }
 
 
-/* Mantener el creador con el mismo tamaño */
+/* ================================= */
+/* SCROLL DEL ÁREA DE ACCESORIOS */
+/* ================================= */
 
-.creator {
+.accessory-options {
+    max-height: 343px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+/* ================================= */
+/* PIE DE PÁGINA VISIBLE */
+/* ================================= */
+
+.site-footer {
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
     width: 1200px;
-    min-width: 1200px;
+    max-width: 1200px;
+    background-color: #1e1e1e;
+    z-index: 10;
 }
-
-
-/* Mantener el panel izquierdo */
-
-.options-panel {
-    width: 700px;
-    flex: none;
-}
-
-
-/* Mantener el personaje en su posición */
-
-.character-container {
-    width: 450px;
-    min-width: 450px;
-    flex: none;
-}
-
-
-/* Eliminar el diseño responsive */
-
-@media (max-width: 900px) {
-
-    .creator {
-        flex-direction: row;
-    }
-
-    .character-container {
-        width: 450px;
-        min-width: 450px;
-        order: initial;
-        position: sticky;
-    }
-
-    #characterImage {
-        width: 450px;
-        height: 450px;
-    }
+/* Imágenes de los trajes más grandes y ligeramente hacia arriba */
+.accessory-button[data-skin] img {
+    width: 125%;
+    height: 125%;
+    object-fit: contain;
+    transform: translateY(-8%);
 }

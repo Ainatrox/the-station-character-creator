@@ -4,10 +4,11 @@
 
 
 // ==========================================
-// PERSONAJE
+// ELEMENTOS DEL PERSONAJE
 // ==========================================
 
 const characterImage = document.getElementById("characterImage");
+const hatImage = document.getElementById("hatImage");
 
 
 // ==========================================
@@ -166,17 +167,21 @@ const colors = {
 // BOTONES DE COLOR
 // ==========================================
 
-const colorButtons = document.querySelectorAll(".color");
+const colorButtons =
+    document.querySelectorAll(".color");
 
 
-// Poner el color HEX correspondiente a cada botón
+// Aplicar color HEX a cada botón
 
 colorButtons.forEach(button => {
 
     const color = button.dataset.color;
 
     if (colors[color]) {
-        button.style.backgroundColor = colors[color];
+
+        button.style.backgroundColor =
+            colors[color];
+
     }
 
 });
@@ -190,10 +195,11 @@ colorButtons.forEach(button => {
 
     button.addEventListener("click", () => {
 
-        const color = button.dataset.color;
+        const color =
+            button.dataset.color;
 
 
-        // Cambiar imagen del personaje
+        // Cambiar personaje
 
         characterImage.src =
             `assets/character/colors/${color}.png`;
@@ -202,11 +208,13 @@ colorButtons.forEach(button => {
         // Quitar selección anterior
 
         colorButtons.forEach(btn => {
+
             btn.classList.remove("selected");
+
         });
 
 
-        // Seleccionar este botón
+        // Seleccionar nuevo color
 
         button.classList.add("selected");
 
@@ -216,7 +224,7 @@ colorButtons.forEach(button => {
 
 
 // ==========================================
-// CATEGORÍAS
+// CATEGORÍAS DE COLORES
 // ==========================================
 
 const categoryButtons =
@@ -227,35 +235,30 @@ categoryButtons.forEach(button => {
 
     button.addEventListener("click", () => {
 
-        const category = button.parentElement;
+        const category =
+            button.parentElement;
 
         const options =
             category.querySelector(".options");
 
 
-        // Comprobar si estaba abierta
-
         const isOpen =
             category.classList.contains("open");
 
-
-        // Cerrar la categoría
 
         if (isOpen) {
 
             category.classList.remove("open");
 
-            options.style.display = "none";
+            options.style.display =
+                "none";
 
-        }
-
-        // Abrir la categoría
-
-        else {
+        } else {
 
             category.classList.add("open");
 
-            options.style.display = "grid";
+            options.style.display =
+                "grid";
 
         }
 
@@ -265,14 +268,15 @@ categoryButtons.forEach(button => {
 
 
 // ==========================================
-// CATEGORÍAS CERRADAS AL INICIAR
+// CERRAR CATEGORÍAS DE COLORES AL INICIAR
 // ==========================================
 
 document
     .querySelectorAll(".color-category .options")
     .forEach(options => {
 
-        options.style.display = "none";
+        options.style.display =
+            "none";
 
     });
 
@@ -281,13 +285,13 @@ document
 // COLOR INICIAL
 // ==========================================
 
-// Seleccionar el primer color
-
 if (colorButtons.length > 0) {
 
     colorButtons[0].classList.add("selected");
 
 }
+
+
 // ==========================================
 // CATEGORÍAS PRINCIPALES
 // ==========================================
@@ -300,21 +304,27 @@ mainCategoryButtons.forEach(button => {
 
     button.addEventListener("click", () => {
 
-        const category = button.parentElement;
+        const category =
+            button.parentElement;
 
         category.classList.toggle("open");
 
+
         const content =
-            category.querySelector(".main-category-content");
+            category.querySelector(
+                ".main-category-content"
+            );
 
 
         if (category.classList.contains("open")) {
 
-            content.style.display = "block";
+            content.style.display =
+                "block";
 
         } else {
 
-            content.style.display = "none";
+            content.style.display =
+                "none";
 
         }
 
@@ -328,28 +338,36 @@ mainCategoryButtons.forEach(button => {
 // ==========================================
 
 const accessoryCategoryButtons =
-    document.querySelectorAll(".accessory-category-button");
+    document.querySelectorAll(
+        ".accessory-category-button"
+    );
 
 
 accessoryCategoryButtons.forEach(button => {
 
     button.addEventListener("click", () => {
 
-        const category = button.parentElement;
+        const category =
+            button.parentElement;
 
         category.classList.toggle("open");
 
+
         const options =
-            category.querySelector(".accessory-options");
+            category.querySelector(
+                ".accessory-options"
+            );
 
 
         if (category.classList.contains("open")) {
 
-            options.style.display = "grid";
+            options.style.display =
+                "grid";
 
         } else {
 
-            options.style.display = "none";
+            options.style.display =
+                "none";
 
         }
 
@@ -359,14 +377,15 @@ accessoryCategoryButtons.forEach(button => {
 
 
 // ==========================================
-// EMPEZAR CON LAS CATEGORÍAS CERRADAS
+// CERRAR CATEGORÍAS AL INICIAR
 // ==========================================
 
 document
     .querySelectorAll(".main-category-content")
     .forEach(content => {
 
-        content.style.display = "none";
+        content.style.display =
+            "none";
 
     });
 
@@ -375,71 +394,235 @@ document
     .querySelectorAll(".accessory-options")
     .forEach(options => {
 
-        options.style.display = "none";
+        options.style.display =
+            "none";
 
     });
+
+
 // ==========================================
 // SOMBREROS
 // ==========================================
 
-const hatImage = document.getElementById("hatImage");
-
-const hatButtons =
-    document.querySelectorAll(".accessory-button");
+const hatsContainer =
+    document.getElementById("hatsContainer");
 
 
-hatButtons.forEach(button => {
+// Generar sombreros automáticamente
+//
+// hat_0 = sin sombrero
+// hat_1 - hat_106 = sombreros
+
+if (hatsContainer) {
+
+    for (let i = 0; i <= 106; i++) {
+
+        const button =
+            document.createElement("button");
+
+        button.className =
+            "accessory-button";
+
+        button.dataset.hat =
+            `hat_${i}`;
+
+
+        button.innerHTML = `
+            <img
+                src="assets/character/hats/hat_${i}.png"
+                alt="${i === 0 ? "Sin sombrero" : `Sombrero ${i}`}"
+            >
+        `;
+
+
+        hatsContainer.appendChild(button);
+
+    }
+
+}
+
+
+// ==========================================
+// SELECCIONAR SOMBRERO
+// ==========================================
+
+function activarBotonesSombreros() {
+
+    const hatButtons =
+        document.querySelectorAll(
+            ".accessory-button[data-hat]"
+        );
+
+
+    hatButtons.forEach(button => {
+
+        button.addEventListener("click", () => {
+
+            const hat =
+                button.dataset.hat;
+
+
+            // Cambiar imagen del sombrero
+
+            hatImage.src =
+                `assets/character/hats/${hat}.png`;
+
+
+            // Quitar selección anterior
+
+            hatButtons.forEach(btn => {
+
+                btn.classList.remove("selected");
+
+            });
+
+
+            // Seleccionar sombrero
+
+            button.classList.add("selected");
+
+        });
+
+    });
+
+}
+
+
+activarBotonesSombreros();
+
+
+// ==========================================
+// TRAJES
+// ==========================================
+
+const skinOptions =
+    document.querySelector(
+        ".accessory-category:last-child .accessory-options"
+    );
+
+
+// ==========================================
+// SELECCIONAR TRAJE
+// ==========================================
+
+const skinButtons =
+    document.querySelectorAll(
+        ".accessory-button[data-skin]"
+    );
+
+
+const skinImage =
+    document.getElementById("skinImage");
+
+
+skinButtons.forEach(button => {
 
     button.addEventListener("click", () => {
 
-        const hat = button.dataset.hat;
+        const skin =
+            button.dataset.skin;
 
 
-        // Poner el sombrero sobre el personaje
+        // Si existe una capa de traje,
+        // cambiar su imagen
 
-        hatImage.src =
-            `assets/character/hats/${hat}.png`;
+        if (skinImage) {
+
+            skinImage.src =
+                `assets/character/skins/${skin}.png`;
+
+        }
 
 
         // Quitar selección anterior
 
-        hatButtons.forEach(btn => {
+        skinButtons.forEach(btn => {
+
             btn.classList.remove("selected");
+
         });
 
 
-        // Marcar sombrero seleccionado
+        // Seleccionar traje
 
         button.classList.add("selected");
 
     });
 
 });
-// =================================
+
+
+// ==========================================
+// INICIALIZAR TRAJE
+// ==========================================
+
+if (skinImage) {
+
+    skinImage.src =
+        "assets/character/skins/skin_0.png";
+
+}
+
+
+// ==========================================
 // EXPORTAR PERSONAJE COMO PNG
-// =================================
+// ==========================================
 
-document.getElementById("exportButton").addEventListener("click", async function () {
+document
+    .getElementById("exportButton")
+    .addEventListener("click", async function () {
 
-    const character = document.getElementById("characterImage");
-    const hat = document.getElementById("hatImage");
+
+    // ======================================
+    // ELEMENTOS
+    // ======================================
+
+    const character =
+        document.getElementById(
+            "characterImage"
+        );
+
+    const hat =
+        document.getElementById(
+            "hatImage"
+        );
+
+    const skin =
+        document.getElementById(
+            "skinImage"
+        );
 
 
-    // =================================
-    // CARGAR IMAGEN
-    // =================================
+    // ======================================
+    // FUNCIÓN PARA CARGAR IMÁGENES
+    // ======================================
 
     function loadImage(src) {
 
         return new Promise((resolve, reject) => {
 
-            const img = new Image();
+            const img =
+                new Image();
 
-            img.onload = () => resolve(img);
 
-            img.onerror = () => reject(
-                new Error("No se pudo cargar la imagen: " + src)
-            );
+            img.onload = () => {
+
+                resolve(img);
+
+            };
+
+
+            img.onerror = () => {
+
+                reject(
+                    new Error(
+                        "No se pudo cargar la imagen: "
+                        + src
+                    )
+                );
+
+            };
+
 
             img.src = src;
 
@@ -450,108 +633,180 @@ document.getElementById("exportButton").addEventListener("click", async function
 
     try {
 
-        // =================================
+        // ==================================
         // CARGAR PERSONAJE
-        // =================================
+        // ==================================
 
-        const characterImg = await loadImage(character.src);
+        const characterImg =
+            await loadImage(
+                character.src
+            );
 
 
-        // =================================
-        // CARGAR ACCESORIO
-        // =================================
+        // ==================================
+        // CARGAR TRAJE
+        // ==================================
 
-        let hatImg = null;
+        let skinImg = null;
+
 
         if (
-            hat.style.display !== "none" &&
-            hat.src &&
-            !hat.src.endsWith("hat_0.png")
+            skin &&
+            skin.src &&
+            !skin.src.endsWith("skin_0.png")
         ) {
 
-            hatImg = await loadImage(hat.src);
+            skinImg =
+                await loadImage(
+                    skin.src
+                );
 
         }
 
 
-        // =================================
-        // TAMAÑOS ORIGINALES
-        // =================================
+        // ==================================
+        // CARGAR SOMBRERO
+        // ==================================
 
-        const characterWidth = characterImg.naturalWidth;
-        const characterHeight = characterImg.naturalHeight;
+        let hatImg = null;
+
+
+        if (
+            hat &&
+            hat.src &&
+            !hat.src.endsWith("hat_0.png")
+        ) {
+
+            hatImg =
+                await loadImage(
+                    hat.src
+                );
+
+        }
+
+
+        // ==================================
+        // TAMAÑOS ORIGINALES
+        // ==================================
+
+        const characterWidth =
+            characterImg.naturalWidth;
+
+        const characterHeight =
+            characterImg.naturalHeight;
+
+
+        let skinWidth = 0;
+        let skinHeight = 0;
+
+
+        if (skinImg) {
+
+            skinWidth =
+                skinImg.naturalWidth;
+
+            skinHeight =
+                skinImg.naturalHeight;
+
+        }
 
 
         let hatWidth = 0;
         let hatHeight = 0;
 
+
         if (hatImg) {
 
-            hatWidth = hatImg.naturalWidth;
-            hatHeight = hatImg.naturalHeight;
+            hatWidth =
+                hatImg.naturalWidth;
+
+            hatHeight =
+                hatImg.naturalHeight;
 
         }
 
 
-        // =================================
+        // ==================================
         // TAMAÑO DEL CANVAS
-        // =================================
+        // ==================================
 
-        /*
-         * NO se cambia el tamaño de ninguna imagen.
-         *
-         * El canvas será suficientemente grande
-         * para contener tanto al personaje como
-         * al accesorio.
-         */
-
-        const width = Math.max(
-            characterWidth,
-            hatWidth
-        );
-
-        const height = Math.max(
-            characterHeight,
-            hatHeight
-        );
+        const width =
+            Math.max(
+                characterWidth,
+                skinWidth,
+                hatWidth
+            );
 
 
-        // =================================
-        // CREAR CANVAS TRANSPARENTE
-        // =================================
-
-        const canvas = document.createElement("canvas");
-
-        canvas.width = width;
-        canvas.height = height;
-
-        const ctx = canvas.getContext("2d");
+        const height =
+            Math.max(
+                characterHeight,
+                skinHeight,
+                hatHeight
+            );
 
 
-        // =================================
+        // ==================================
+        // CREAR CANVAS
+        // ==================================
+
+        const canvas =
+            document.createElement(
+                "canvas"
+            );
+
+
+        canvas.width =
+            width;
+
+        canvas.height =
+            height;
+
+
+        const ctx =
+            canvas.getContext(
+                "2d"
+            );
+
+
+        // ==================================
         // POSICIÓN DEL PERSONAJE
-        // =================================
-
-        /*
-         * Se coloca abajo.
-         *
-         * Esto hace que la parte inferior
-         * coincida con la del accesorio.
-         */
+        // ==================================
 
         const characterX =
             (width - characterWidth) / 2;
+
 
         const characterY =
             height - characterHeight;
 
 
-        // =================================
-        // POSICIÓN DEL ACCESORIO
-        // =================================
+        // ==================================
+        // POSICIÓN DEL TRAJE
+        // ==================================
+
+        let skinX = 0;
+        let skinY = 0;
+
+
+        if (skinImg) {
+
+            skinX =
+                (width - skinWidth) / 2;
+
+            skinY =
+                height - skinHeight;
+
+        }
+
+
+        // ==================================
+        // POSICIÓN DEL SOMBRERO
+        // ==================================
 
         let hatX = 0;
         let hatY = 0;
+
 
         if (hatImg) {
 
@@ -564,9 +819,9 @@ document.getElementById("exportButton").addEventListener("click", async function
         }
 
 
-        // =================================
+        // ==================================
         // DIBUJAR PERSONAJE
-        // =================================
+        // ==================================
 
         ctx.drawImage(
             characterImg,
@@ -575,9 +830,24 @@ document.getElementById("exportButton").addEventListener("click", async function
         );
 
 
-        // =================================
-        // DIBUJAR ACCESORIO
-        // =================================
+        // ==================================
+        // DIBUJAR TRAJE
+        // ==================================
+
+        if (skinImg) {
+
+            ctx.drawImage(
+                skinImg,
+                skinX,
+                skinY
+            );
+
+        }
+
+
+        // ==================================
+        // DIBUJAR SOMBRERO
+        // ==================================
 
         if (hatImg) {
 
@@ -590,9 +860,9 @@ document.getElementById("exportButton").addEventListener("click", async function
         }
 
 
-        // =================================
+        // ==================================
         // EXPORTAR PNG
-        // =================================
+        // ==================================
 
         canvas.toBlob(function (blob) {
 
@@ -607,34 +877,48 @@ document.getElementById("exportButton").addEventListener("click", async function
             }
 
 
-            // =================================
+            // ==================================
             // CREAR DESCARGA
-            // =================================
+            // ==================================
 
             const link =
-                document.createElement("a");
+                document.createElement(
+                    "a"
+                );
+
 
             link.download =
                 "the-station-personaje.png";
 
+
             link.href =
-                URL.createObjectURL(blob);
+                URL.createObjectURL(
+                    blob
+                );
 
 
-            document.body.appendChild(link);
+            document.body.appendChild(
+                link
+            );
+
 
             link.click();
 
-            document.body.removeChild(link);
+
+            document.body.removeChild(
+                link
+            );
 
 
-            // =================================
+            // ==================================
             // LIBERAR MEMORIA
-            // =================================
+            // ==================================
 
             setTimeout(() => {
 
-                URL.revokeObjectURL(link.href);
+                URL.revokeObjectURL(
+                    link.href
+                );
 
             }, 1000);
 
