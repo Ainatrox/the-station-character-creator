@@ -349,9 +349,10 @@ h1 {
     /* ================================= */
 
     .accessory-button img {
-        width: 100%;
-        height: 100%;
+        width: 200%;
+        height: 200%;
         object-fit: contain;
+        transform: translateY(8%);
     }
 
 
@@ -640,8 +641,8 @@ body {
 }
 /* Imágenes de los trajes más grandes y ligeramente hacia arriba */
 .accessory-button[data-skin] img {
-    width: 125%;
-    height: 125%;
+    width: 200%;
+    height: 200%;
     object-fit: contain;
-    transform: translateY(-8%);
+    transform: translateY(-20%);
 }
